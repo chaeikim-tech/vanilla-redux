@@ -25,9 +25,11 @@ const reducer = (state = [], action) => {
     console.log(action);
     switch (action.type) {
         case ADD_TODO:
-          return [{ text:action.text, id: Date.now() }, ...state];
+          const newToDoObj = { text: action.text, id: Date.now() };
+          return [newToDoObj, ...state];
         case DELETE_TODO:
-          return [];
+          const cleaned = state.filter(toDo => toDo.id !== action.id);
+          return cleaned;
         default:
           return state;
     }
@@ -42,7 +44,7 @@ const dispatchAddToDo = text => {
 };
 
 const dispatchDeleteToDo = event => {
-  const id = event.target.parentNode.id;
+  const id = parseInt(event.target.parentNode.id);
   store.dispatch(deleteToDo(id));
 };
 
