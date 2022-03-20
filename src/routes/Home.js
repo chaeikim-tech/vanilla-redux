@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import { actionCreators } from '../store';
 
-function Home({ toDos }) {
+function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
   function onChange(event) {
     setText(event.target.value);
   }
   function onSubmit(event) {
     event.preventDefault();
+    addToDo(text);
     setText("");
   }
   return (
@@ -26,6 +28,14 @@ function mapStateToProps(state){
     return { toDos: state};
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+    return{
+        addToDo: text => dispatch(actionCreators.addToDo(text))
+    };
+}
+//https://react-redux.js.org/using-react-redux/connect-mapdispatch
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
 // connect = components들을 store에 연결해줌.
 // https://react-redux.js.org/using-react-redux/connect-mapstate
