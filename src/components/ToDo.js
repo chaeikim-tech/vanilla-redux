@@ -9,6 +9,7 @@ function ToDo({ text, onBtnClick, id }) {
         <Link to={`/${id}`}>
             {text} <button onClick={onBtnClick}>DEL</button>
         </Link>
+        <button onClick={onBtnClick}>DEL</button>
     </li>
   );
 }
